@@ -16,7 +16,7 @@
       "id": 10003,
       "name": "The Complete Guide to Backend Development",
       "price": 49,
-      "in_stock": true
+      "in_stock": false
     },
     {
       "id": 10004,

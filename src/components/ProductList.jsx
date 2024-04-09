@@ -1,18 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export const ProductList = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [showInStock, setShowInStock] = useState(false);
 
-  useEffect(() => {
-    fetch("http://localhost:8000/products")
-      .then((response) => response.json())
-      .then((data) => {
-        setAllProducts(data);
-        setProducts(data);
-      });
+  const fetchProducts = useCallback(async () => {
+    try {
+      const response = await fetch("http://localhost:8000/products");
+      const data = await response.json();
+      setAllProducts(data);
+      setProducts(data);
+    } catch (error) {
+      console.error("Failed to fetch", error);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   useEffect(() => {
     if (showInStock) {
